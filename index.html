@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEDUP - Fotos de Formatura | Carlos Suzuki Photography</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden;
+        }
+        
+        .font-display { font-family: 'Playfair Display', serif; }
+        
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Advanced Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.6); }
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .floating { animation: float 6s ease-in-out infinite; }
+        .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+        
+        .gradient-animated {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+        }
+        
+        /* Modern Card Effects */
+        .modern-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .modern-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Pricing Cards */
+        .pricing-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .pricing-card:hover::before {
+            left: 100%;
+        }
+        
+        /* Parallax Background */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+        }
+        
+        /* Intersection Observer Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Interactive Elements */
+        .interactive-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .interactive-btn:hover::before {
+            left: 100%;
+        }
+        
+        /* Particle Background */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 8s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-white font-bold text-xl font-display">
+                    <i class="fas fa-camera mr-2"></i>Carlos Suzuki
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-white hover:text-blue-200 transition-colors">Início</a>
+                    <a href="#process" class="text-white hover:text-blue-200 transition-colors">Processo</a>
+                    <a href="#pricing" class="text-white hover:text-blue-200 transition-colors">Preços</a>
+                    <a href="#contact" class="text-white hover:text-blue-200 transition-colors">Contato</a>
+                </div>
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen gradient-animated relative overflow-hidden flex items-center">
+        <div class="particles" id="particles"></div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="fade-in">
+                <div class="floating mb-8">
+                    <div class="text-8xl md:text-9xl mb-4">🎓</div>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 font-display">
+                    Parabéns,<br>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-pink-400">
+                        Formando CEDUP!
+                    </span>
+                </h1>
+                <p class="text-xl md:text-2xl text-white opacity-90 max-w-4xl mx-auto mb-12 leading-relaxed">
+                    Reviva seus momentos especiais e escolha suas fotografias de formatura com nossa plataforma moderna e intuitiva
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="interactive-btn bg-white text-gray-800 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all shadow-2xl pulse-glow">
+                        <i class="fas fa-images mr-2"></i>Ver Galeria
+                    </button>
+                    <button class="interactive-btn glass text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-gray-800 transition-all">
+                        <i class="fas fa-whatsapp mr-2"></i>Contato WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Welcome Message -->
+    <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div class="container mx-auto px-6">
+            <div class="modern-card rounded-3xl p-12 fade-in">
+                <div class="text-center max-w-4xl mx-auto">
+                    <div class="text-4xl mb-6">✨</div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-8 font-display">
+                        Uma Jornada Inesquecível
+                    </h2>
+                    <p class="text-xl text-gray-600 leading-relaxed mb-8">
+                        É uma imensa alegria ter feito parte de um momento tão especial. Agradecemos pela oportunidade 
+                        de registrar sua jornada e desejamos muito sucesso na sua nova caminhada.
+                    </p>
+                    <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6 font-display">Como Funciona</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Um processo simples e moderno para você escolher suas fotos favoritas
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="modern-card rounded-2xl p-8 text-center slide-in-left" style="animation-delay: 0.1s">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-mobile-alt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-4 text-gray-800">Acesso Digital</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Suas fotos estão disponíveis em nossa plataforma online com tecnologia de reconhecimento facial
+                    </p>
+                </div>
+                
+                <div class="modern-card rounded-2xl p-8 text-center slide-in-left" style="animation-delay: 0.2s">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-heart text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-4 text-gray-800">Seleção Intuitiva</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Escolha suas fotos favoritas com nossa interface moderna e finalize seu pedido facilmente
+                    </p>
+                </div>
+                
+                <div class="modern-card rounded-2xl p-8 text-center slide-in-right" style="animation-delay: 0.3s">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fab fa-whatsapp text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-4 text-gray-800">Contato Direto</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Entre em contato via WhatsApp com Carlos Suzuki para finalizar seu pedido
+                    </p>
+                </div>
+                
+                <div class="modern-card rounded-2xl p-8 text-center slide-in-right" style="animation-delay: 0.4s">
+                    <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-credit-card text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-4 text-gray-800">Pagamento Seguro</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Link de pagamento personalizado e processamento rápido do seu pedido
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Package Info -->
+    <section class="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6 font-display">Seu Pacote Inclui</h2>
+            </div>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="modern-card rounded-3xl p-12 text-center fade-in">
+                    <div class="text-6xl mb-8">📸</div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-2xl p-6">
+                            <h3 class="text-2xl font-bold mb-2">Opção 1</h3>
+                            <p class="text-3xl font-bold">10 fotos</p>
+                            <p class="opacity-90">formato 15x21</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-500 to-pink-600 text-white rounded-2xl p-6">
+                            <h3 class="text-2xl font-bold mb-2">Opção 2</h3>
+                            <p class="text-3xl font-bold">15 fotos</p>
+                            <p class="opacity-90">formato 10x15</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6 font-display">Preços Especiais</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Descontos exclusivos para você criar um pacote completo de recordações
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Digital Photos -->
+                <div class="slide-in-left">
+                    <div class="modern-card rounded-3xl p-8 h-full">
+                        <div class="text-center mb-8">
+                            <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-download text-white text-3xl"></i>
+                            </div>
+                            <h3 class="text-3xl font-bold text-gray-800 mb-4 font-display">Fotos Digitais</h3>
+                            <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-full inline-block">
+                                <span class="text-2xl font-bold">R$ 13,90</span>
+                                <span class="text-sm opacity-90 ml-2">por foto</span>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="pricing-card bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-2xl border-2 border-transparent hover:border-blue-300 transition-all">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="font-bold text-lg">10 fotos extras</span>
+                                        <div class="text-sm text-gray-600">Economia de R$ 6,95</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold mb-1">5% OFF</div>
+                                        <div class="text-2xl font-bold text-blue-600">R$ 132,05</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="pricing-card bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-2xl border-2 border-transparent hover:border-purple-300 transition-all">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="font-bold text-lg">20 fotos extras</span>
+                                        <div class="text-sm text-gray-600">Economia de R$ 27,80</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-bold mb-1">10% OFF</div>
+                                        <div class="text-2xl font-bold text-purple-600">R$ 250,20</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="pricing-card bg-gradient-to-r from-pink-50 to-red-50 p-6 rounded-2xl border-2 border-transparent hover:border-pink-300 transition-all">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="font-bold text-lg">25 fotos extras</span>
+                                        <div class="text-sm text-gray-600">Economia de R$ 52,17</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-bold mb-1">15% OFF</div>
+                                        <div class="text-2xl font-bold text-pink-600">R$ 295,58</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="pricing-card bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-2xl border-4 border-green-300 relative overflow-hidden">
+                                <div class="absolute top-0 right-0 bg-green-500 text-white px-4 py-2 text-sm font-bold">
+                                    MELHOR OFERTA
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="font-bold text-lg">30+ fotos extras</span>
+                                        <div class="text-sm text-gray-600">Máxima economia!</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold mb-1">20% OFF</div>
+                                        <div class="text-2xl font-bold text-green-600">Consulte</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Printed Photos -->
+                <div class="slide-in-right">
+                    <div class="modern-card rounded-3xl p-8 h-full">
+                        <div class="text-center mb-8">
+                            <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-print text-white text-3xl"></i>
+                            </div>
+                            <h3 class="text-3xl font-bold text-gray-800 mb-4 font-display">Fotos Impressas</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-3 rounded-2xl">
+                                    <div class="font-bold">10x15</div>
+                                    <div class="text-xl font-bold">R$ 14,90</div>
+                                </div>
+                                <div class="bg-gradient-to-r from-red-500 to-pink-600 text-white px-4 py-3 rounded-2xl">
+                                    <div class="font-bold">15x21</div>
+                                    <div class="text-xl font-bold">R$ 16,90</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="pricing-card bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-2xl border-2 border-transparent hover:border-orange-300 transition-all">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-lg">20 fotos extras</span>
+                                    <div class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">5% OFF</div>
+                                </div>
+                            </div>
+                            
+                            <div class="pricing-card bg-gradient-to-r from-red-50 to-pink-50 p-6 rounded-2xl border-2 border-transparent hover:border-red-300 transition-all">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-lg">30 fotos extras</span>
+                                    <div class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">10% OFF</div>
+                                </div>
+                            </div>
+                            
+                            <div class="pricing-card bg-gradient-to-r from-pink-50 to-purple-50 p-6 rounded-2xl border-4 border-pink-300">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-lg">40+ fotos extras</span>
+                                    <div class="bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-bold">15% OFF</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 p-4 bg-yellow-50 rounded-2xl border-l-4 border-yellow-400">
+                            <p class="text-sm text-yellow-800">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                Descontos diferentes devido aos custos de laboratórios terceirizados
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Products -->
+    <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6 font-display">Produtos Premium</h2>
+                <p class="text-xl text-gray-600">Eternize suas memórias com produtos de alta qualidade</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="modern-card rounded-3xl p-8 text-center slide-in-left">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-book text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Álbum Premium</h3>
+                    <p class="text-gray-600 mb-6">Com box personalizado para fotos 15x21, acabamento luxuoso</p>
+                    <button class="interactive-btn bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all">
+                        Solicitar Orçamento
+                    </button>
+                </div>
+                
+                <div class="modern-card rounded-3xl p-8 text-center fade-in">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-box text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Caixa Box</h3>
+                    <p class="text-gray-600 mb-6">Elegante caixa para organizar suas fotos 15x21 com estilo</p>
+                    <button class="interactive-btn bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all">
+                        Solicitar Orçamento
+                    </button>
+                </div>
+                
+                <div class="modern-card rounded-3xl p-8 text-center slide-in-right">
+                    <div class="w-20 h-20 bg-gradient-to-br from-pink-500 to-red-600 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-book-open text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Fotolivros</h3>
+                    <p class="text-gray-600 mb-6">Design exclusivo e impressão de alta qualidade para suas memórias</p>
+                    <button class="interactive-btn bg-gradient-to-r from-pink-500 to-red-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all">
+                        Solicitar Orçamento
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery Timeline -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6 font-display">Cronograma de Entrega</h2>
+                <p class="text-xl text-gray-600">Prazos transparentes para você planejar</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="modern-card rounded-3xl p-8 text-center slide-in-left">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-cloud-download-alt text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Fotos Digitais</h3>
+                        <div class="text-3xl font-bold text-green-600 mb-2">3 dias</div>
+                        <p class="text-gray-600">Via Google Drive em alta resolução</p>
+                    </div>
+                    
+                    <div class="modern-card rounded-3xl p-8 text-center fade-in">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-store text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Retirada no Estúdio</h3>
+                        <div class="text-3xl font-bold text-blue-600 mb-2">7 dias</div>
+                        <p class="text-gray-600">Após confirmação do pedido</p>
+                    </div>
+                    
+                    <div class="modern-card rounded-3xl p-8 text-center slide-in-right">
+                        <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-shipping-fast text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Envio Correios</h3>
+                        <div class="text-3xl font-bold text-orange-600 mb-2">Variável</div>
+                        <p class="text-gray-600">Frete calculado à parte</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Important Notice -->
+    <section class="py-20 bg-gradient-to-br from-red-50 to-orange-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="modern-card rounded-3xl p-12 border-l-8 border-red-400 fade-in">
+                    <div class="flex items-start">
+                        <div class="text-4xl mr-6 text-red-500">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-bold text-red-800 mb-6 font-display">Informações Importantes</h3>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="font-bold text-red-700 mb-3 text-lg">
+                                        <i class="fas fa-clock mr-2"></i>Prazos da Plataforma
+                                    </h4>
+                                    <ul class="text-red-700 space-y-2">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-calendar-alt mr-2 text-red-500"></i>
+                                            <strong>90 dias</strong> para escolha das fotos
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-redo mr-2 text-red-500"></i>
+                                            Reativação: <strong>R$ 50,00</strong> por 30 dias extras
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-red-700 mb-3 text-lg">
+                                        <i class="fas fa-magic mr-2"></i>Retoques Inclusos
+                                    </h4>
+                                    <ul class="text-red-700 space-y-2">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-palette mr-2 text-red-500"></i>
+                                            Correção de cores e exposição
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-user mr-2 text-red-500"></i>
+                                            Tratamento de pele automático
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 gradient-animated relative overflow-hidden">
+        <div class="particles" id="particles2"></div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-8 font-display">
+                    Pronto para Suas Fotos?
+                </h2>
+                <p class="text-xl text-white opacity-90 mb-12 max-w-3xl mx-auto">
+                    Entre em contato conosco pelo WhatsApp e comece a escolher suas fotografias de formatura
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <a href="https://wa.me/5549984386099" 
+                       class="interactive-btn glass text-white px-12 py-6 rounded-full font-bold text-xl hover:bg-white hover:text-gray-800 transition-all shadow-2xl pulse-glow">
+                        <i class="fab fa-whatsapp mr-3 text-2xl"></i>
+                        (49) 98438-6099
+                    </a>
+                    
+                    <div class="text-white">
+                        <div class="text-lg font-semibold">Carlos Suzuki</div>
+                        <div class="text-sm opacity-75">Fotógrafo Profissional</div>
+                    </div>
+                </div>
+                
+                <div class="mt-16 grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                    <div class="glass rounded-2xl p-6">
+                        <i class="fas fa-envelope text-3xl text-white mb-4"></i>
+                        <h4 class="font-semibold text-white mb-2">Email</h4>
+                        <p class="text-white opacity-75">contato@carlossuzuki.com</p>
+                    </div>
+                    <div class="glass rounded-2xl p-6">
+                        <i class="fas fa-map-marker-alt text-3xl text-white mb-4"></i>
+                        <h4 class="font-semibold text-white mb-2">Estúdio</h4>
+                        <p class="text-white opacity-75">Disponível para retirada</p>
+                    </div>
+                    <div class="glass rounded-2xl p-6">
+                        <i class="fas fa-clock text-3xl text-white mb-4"></i>
+                        <h4 class="font-semibold text-white mb-2">Atendimento</h4>
+                        <p class="text-white opacity-75">Segunda a Sexta, 9h às 18h</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <div class="text-2xl font-bold mb-4 font-display">
+                    <i class="fas fa-camera mr-2"></i>Carlos Suzuki Photography
+                </div>
+                <p class="text-gray-400 mb-6">Eternizando seus momentos especiais com arte e profissionalismo</p>
+                
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+                
+                <div class="border-t border-gray-800 pt-8">
+                    <p class="text-gray-500">© 2024 Carlos Suzuki Fotografia - CEDUP Formatura. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(0, 0, 0, 0.9)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.1)';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Create floating particles
+        function createParticles(containerId, count = 50) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        createParticles('particles', 30);
+        createParticles('particles2', 30);
+
+        // Interactive button effects
+        document.querySelectorAll('.interactive-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px) scale(1.05)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Pricing card interactions
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.5s ease-in-out';
+        });
+
+        // Set initial opacity
+        document.body.style.opacity = '0';
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9789f09fe23fc134',t:'MTc1Njc4Mzk0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
